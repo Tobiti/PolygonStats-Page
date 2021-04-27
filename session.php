@@ -131,6 +131,16 @@
           });
         }
       });
+ 
+		$('#vis-buttons button').on( 'click', function (e) {
+			e.preventDefault();
+	 
+			// Get the column API object
+			var column = table.column( $(this).attr('data-column') );
+	 
+			// Toggle the visibility
+			column.visible( ! column.visible() );
+		});
     });
     
     function autoRefresh(){
@@ -162,14 +172,22 @@
       </nav>
 	
 	<div class="container-fluid">
-    <h2>Session #<?php echo $_GET["id"] ?> for <?php echo $_GET["account"] ?></h2>
+    <h2>Session #<?php echo $_GET["id"] ?> for <?php echo $_GET["account"] ?></h2><br />
+	<div id="vis-buttons">
+        Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="1">Type</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="2">Xp Reward</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="3">Stardust Reward</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="4">IV</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="5">Shiny</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="6">Timestamp</button>
+    </div><br />
       <table id="logEntries" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
         <thead>
           <tr>
             <th ></th>
             <th >Type</th>
             <th >Xp Reward</th>
-            <th >Stardust Reward</th>
+            <th style="white-space:normal;">Stardust Reward</th>
             <th >IV</th>
             <th >Shiny</th>
             <th >Timestamp</th>

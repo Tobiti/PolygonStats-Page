@@ -7,6 +7,7 @@
 	<title>PokemonGo Stats</title>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.2/css/fixedColumns.dataTables.min.css">
 	<style type="text/css" class="init">
 	        body {
             padding-top: 5rem;
@@ -15,37 +16,49 @@
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js "></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedcolumns/3.3.2/js/dataTables.fixedColumns.min.js"></script>
 	<script type="text/javascript" language="javascript" class="init">
 	
     $(document).ready(function() {
-      var table = $('#stats').DataTable({
-        "processing": true,
-        "sAjaxSource": "ajax/main.php",
-        "search": {
-          "regex": true
-        },
-        "aoColumns": [
-          { mData: 'Name' },
-          { mData: 'CaughtPokemon' },
-          { mData: 'FleetPokemon' },
-          { mData: 'ShinyPokemon' },
-          { mData: 'FortSpins' },
-          { mData: 'XpHour1' },
-          { mData: 'XpHour24' },
-          { mData: 'TotalXp' },
-          { mData: 'StardustHour1' },
-          { mData: 'StardustHour24' },
-          { mData: 'TotalStardust' },
-          { mData: 'Caught24' },
-          { mData: 'Spinned24' }
-        ],
-        "fnDrawCallback": function( oSettings ) {
-          $('#stats tbody').off().on('click', 'tr', function () {
-            var data = table.row( this ).data();
-            window.location = "account.php?id="+data.Id+"&account="+data.Name;
-          } );
-        }
-      });
+		var table = $('#stats').DataTable({
+			"processing": true,
+			"sAjaxSource": "ajax/main.php",
+			"fixedHeader": true,
+			"search": {
+			  "regex": true
+			},
+			"aoColumns": [
+			  { mData: 'Name' },
+			  { mData: 'CaughtPokemon' },
+			  { mData: 'FleetPokemon' },
+			  { mData: 'ShinyPokemon' },
+			  { mData: 'FortSpins' },
+			  { mData: 'XpHour1' },
+			  { mData: 'XpHour24' },
+			  { mData: 'TotalXp' },
+			  { mData: 'StardustHour1' },
+			  { mData: 'StardustHour24' },
+			  { mData: 'TotalStardust' },
+			  { mData: 'Caught24' },
+			  { mData: 'Spinned24' }
+			],
+			"fnDrawCallback": function( oSettings ) {
+			  $('#stats tbody').off().on('click', 'tr', function () {
+				var data = table.row( this ).data();
+				window.location = "account.php?id="+data.Id+"&account="+data.Name;
+			  } );
+			}
+		});
+ 
+		$('#vis-buttons button').on( 'click', function (e) {
+			e.preventDefault();
+	 
+			// Get the column API object
+			var column = table.column( $(this).attr('data-column') );
+	 
+			// Toggle the visibility
+			column.visible( ! column.visible() );
+		});
     });
     function autoRefresh(){
       var table = $('#stats').DataTable();
@@ -76,22 +89,37 @@
       </nav>
 	
 	<div class="container-fluid">
+	<div id="vis-buttons">
+        Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="0">Account Name</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="1">Caught Pokemon</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="2">Escaped Pokemon</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="3">Shiny Pokemon</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="4">Spinned Pokestops</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="5">XP/h</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="6">XP/Day</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="7">XP Total</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="8">Stardust/h</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="9">Stardust/Day</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="10">Stardust Total</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="11">Caught Pokemon / Day</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="12">Spinned Pokestops / Day</button>
+    </div><br />
       <table id="stats" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
         <thead>
           <tr>
-            <th >Account Name</th>
-            <th >Caught Pokemon</th>
-            <th >Escaped Pokemon</th>
-            <th >Shiny Pokemon</th>
-            <th >Spinned Pokestops</th>
-            <th >XP/h</th>
-            <th >XP/Day</th>
+            <th style="white-space:normal;">Account Name</th>
+            <th style="white-space:normal;">Caught Pokemon</th>
+            <th style="white-space:normal;">Escaped Pokemon</th>
+            <th style="white-space:normal;">Shiny Pokemon</th>
+            <th style="white-space:normal;">Spinned Pokestops</th>
+            <th style="white-space:normal;">XP/h</th>
+            <th style="white-space:normal;">XP/Day</th>
             <th >XP Total</th>
-            <th >Stardust/h</th>
-            <th >Stardust/Day</th>
-            <th >Stardust Total</th>
-            <th >Caught Pokemon / Day</th>
-            <th >Spinned Pokestops / Day</th>
+            <th style="white-space:normal;">Stardust/h</th>
+            <th style="white-space:normal;">Stardust/Day</th>
+            <th style="white-space:normal;">Stardust Total</th>
+            <th style="white-space:normal;">Caught Pokemon / Day</th>
+            <th style="white-space:normal;">Spinned Pokestops / Day</th>
           </tr>
         </thead>
       <tbody>
