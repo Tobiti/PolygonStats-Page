@@ -126,18 +126,17 @@
 	<div id="vis-buttons">
         Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="0">Caught Pokemon</button> 
 						<button type="button" class="btn btn-outline-secondary" data-column="1">Escaped Pokemon</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="2">Stardust Reward</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="3">Shiny Pokemon</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="4">100IV</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="5">Spinned Pokestops</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="6">XP/h</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="7">XP/Day</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="8">XP Total</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="9">Stardust/h</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="10">Stardust/Day</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="11">Stardust Total</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="12">Start Time</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="13">Total Minutes</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="2">Shiny Pokemon</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="3">100IV</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="4">Spinned Pokestops</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="5">XP/h</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="6">XP/Day</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="7">XP Total</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="8">Stardust/h</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="9">Stardust/Day</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="10">Stardust Total</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="11">Start Time</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="12">Total Minutes</button>
     </div><br />
 	<div id="">
         Switch to: <button type="button" class="btn btn-outline-secondary" id="switch-to-daily">Daily</button>
