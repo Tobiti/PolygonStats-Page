@@ -31,7 +31,7 @@
         // `d` is the original data object for the row
         return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
-            '<td><a href="http://pokemondb.net/pokedex/'+ d.PokemonName.toLowerCase().replace("male", "-m").replace("female", "-f") +'"><img src="https://img.pokemondb.net/sprites/bank/normal/'+ d.PokemonName.toLowerCase().replace("male", "-m").replace("female", "-f") +'.png" alt="'+d.PokemonName+'"></a></td>'+
+            '<td><a href="http://pokemondb.net/pokedex/'+ d.PokemonName.toLowerCase().replace("female", "-f").replace("male", "-m") +'"><img src="https://img.pokemondb.net/sprites/bank/normal/'+ d.PokemonName.toLowerCase().replace("male", "-m").replace("female", "-f") +'.png" alt="'+d.PokemonName+'"></a></td>'+
             '<td>'+
               '<table>'+
                 '<tr>'+
