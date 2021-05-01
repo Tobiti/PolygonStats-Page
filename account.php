@@ -58,13 +58,13 @@
           { mData: 'StartTime' },
           { mData: 'TotalMinutes' }
         ],
-        "order": [[ 11, "desc" ]],
+        "order": [[ 13, "desc" ]],
         "columnDefs": [
             {
               "render": function ( data, type, row ) {
                 return moment.utc(data).local().format('DD/MM/YYYY HH:mm:ss');
               },
-              "targets": 11
+              "targets": 13
             }
           ],
         "fnDrawCallback": function( oSettings ) {
