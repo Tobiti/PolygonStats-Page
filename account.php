@@ -15,7 +15,7 @@
 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js "></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/sorting/datetime-moment.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
@@ -26,6 +26,8 @@
 	<script type="text/javascript" language="javascript" class="init">
 	
     $(document).ready(function() {
+		$.fn.dataTable.moment( 'DD/MM/YYYY HH:mm:ss' );
+		
 		var myData = {};
 		myData.account_id = "<?php echo $_GET["id"] ?>";
 		myData.daily = 0
