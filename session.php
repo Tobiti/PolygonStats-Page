@@ -72,7 +72,14 @@
         "ajax": {
           "url": 'ajax/session_log_entries.php',
           "data": {
-            "session_id": "<?php echo $_GET["id"] ?>"
+			  <?php 
+				if (isset($_GET["id"])) {
+					echo "\"session_id\": ".$_GET["id"]."\n";
+				} else {
+					echo "\"date\": \"".$_GET["date"]."\",\n";
+					echo "\"acc_id\": \"".$_GET["acc_id"]."\"\n";
+				}
+			  ?>
           }
         },
         "search": {
@@ -174,7 +181,13 @@
       </nav>
 	
 	<div class="container-fluid">
-    <h2>Session #<?php echo $_GET["id"] ?> for <?php echo $_GET["account"] ?></h2><br />
+	<?php 
+	if (isset($_GET["id"])) {
+		echo '<h2>Session '.$_GET["id"].' for '.$_GET["account"].'</h2><br />';
+	} else {
+		echo '<h2>Day '.$_GET["date"].' for '.$_GET["account"].'</h2><br />';
+	}
+	?>
 	<div id="vis-buttons">
         Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="1">Type</button> 
 						<button type="button" class="btn btn-outline-secondary" data-column="2">Xp Reward</button> 

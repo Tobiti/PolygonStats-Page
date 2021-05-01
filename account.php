@@ -70,12 +70,14 @@
             }
           ],
         "fnDrawCallback": function( oSettings ) {
-          $('#sessions tbody').off().on('click', 'tr', function () {
-			  if (!myData.daily) {
+			$('#sessions tbody').off().on('click', 'tr', function () {
 				var data = table.row( this ).data();
-				window.location = "session.php?id="+data.SessionId+"&account=<?php echo $_GET["account"] ?>";
-			  }
-          } );
+				if (myData.daily == 0) {
+					window.location = "session.php?id="+data.SessionId+"&account=<?php echo $_GET["account"] ?>";
+				} else {
+					window.location = "session.php?acc_id=<?php echo $_GET["id"] ?>&date="+encodeURIComponent(data.StartTime)+"&account=<?php echo $_GET["account"] ?>";
+				}
+			});
         }
       });
  
