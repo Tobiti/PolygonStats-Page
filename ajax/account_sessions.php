@@ -12,7 +12,7 @@
 
 	$stmt->bind_param("s", $id);
 	$stmt->execute();
-	$result = $stmt->get_result() or die("database error:". mysqli_error($conn));
+	$result = $stmt->get_result() or die("database error:". mysqli_error($mysqli));
 
 	while($row = $result->fetch_array(MYSQLI_ASSOC)) {
 		$row["XpHour1"] = (int) ($row["TotalXp"] / ($row["TotalMinutes"] / 60));

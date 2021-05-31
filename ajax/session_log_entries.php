@@ -10,7 +10,7 @@
 		$stmt->bind_param("ss", $_GET["acc_id"], $_GET["date"]);
 	}
 	$stmt->execute();
-	$result = $stmt->get_result() or die("database error:". mysqli_error($conn));
+	$result = $stmt->get_result() or die("database error:". mysqli_error($mysqli));
 
 	while($row = $result->fetch_array(MYSQLI_ASSOC)) {
 		if ($row["LogEntryType"] == "Fort") {
