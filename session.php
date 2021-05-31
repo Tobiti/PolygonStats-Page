@@ -31,7 +31,7 @@
         // `d` is the original data object for the row
         return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
-            '<td><a href="http://pokemondb.net/pokedex/'+ d.PokemonName.toLowerCase().replace("female", "-f").replace("male", "-m") +'"><img src="https://img.pokemondb.net/sprites/bank/normal/'+ d.PokemonName.toLowerCase().replace("female", "-f").replace("male", "-m") +'.png" alt="'+d.PokemonName+'"></a></td>'+
+            '<td><a href="http://pokemondb.net/pokedex/'+ d.PokemonName.toLowerCase().replace("female", "-f").replace("male", "-m") +'"><img src="https://img.pokemondb.net/sprites/bank/'+ ((d.Shiny == 1) ? 'shiny':'normal') +'/'+ d.PokemonName.toLowerCase().replace("female", "-f").replace("male", "-m") +'.png" alt="'+d.PokemonName+'"></a></td>'+
             '<td>'+
               '<table>'+
                 '<tr>'+
@@ -93,13 +93,14 @@
             "defaultContent": ''
           },
           { mData: 'LogEntryType' },
+          { mData: 'PokemonName' },
           { mData: 'XpReward' },
           { mData: 'StardustReward' },
           { mData: 'Iv' },
           { mData: 'Shiny' },
           { mData: 'timestamp' }
         ],
-        "order": [[ 6, "desc" ]],
+        "order": [[ 7, "desc" ]],
         "columnDefs": [
             {
               "render": function ( data, type, row ) {
@@ -108,13 +109,22 @@
                 }
                 return data +"%";
               },
-              "targets": 4
+              "targets": 5
+            },
+            {
+              "render": function ( data, type, row ) {
+                if (row.PokemonName == "Missingno") {
+                  return "-";
+                }
+                return data;
+              },
+              "targets": 2
             },
             {
               "render": function ( data, type, row ) {
                 return moment.utc(data).local().format('DD/MM/YYYY HH:mm:ss');
               },
-              "targets": 6
+              "targets": 7
             }
         ],
         "fnDrawCallback": function( oSettings ) {
@@ -190,17 +200,19 @@
 	?>
 	<div id="vis-buttons">
         Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="1">Type</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="2">Xp Reward</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="3">Stardust Reward</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="4">IV</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="5">Shiny</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="6">Timestamp</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="2">Pokemon Name</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="3">Xp Reward</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="4">Stardust Reward</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="5">IV</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="6">Shiny</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="7">Timestamp</button>
     </div><br />
       <table id="logEntries" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
         <thead>
           <tr>
             <th ></th>
             <th >Type</th>
+            <th >Pokemon Name</th>
             <th >Xp Reward</th>
             <th style="white-space:normal;">Stardust Reward</th>
             <th >IV</th>

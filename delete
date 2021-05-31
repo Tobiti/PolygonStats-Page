@@ -1,0 +1,4 @@
+#DELETE FROM SessionLogEntry WHERE `timestamp` < ADDDATE(NOW(), INTERVAL -7 DAY);
+
+#DELETE FROM `Session` WHERE Id IN (SELECT Id FROM (SELECT COUNT(*) AS coun, s.Id AS Id FROM Session s LEFT JOIN SessionLogEntry t ON t.SessionId=s.Id GROUP BY s.Id) b WHERE b.coun<=1);
+#DELETE FROM Account WHERE Id IN (SELECT Id FROM (SELECT COUNT(*) AS coun, a.Id AS Id FROM Account a LEFT JOIN Session s ON s.AccountId=a.Id GROUP BY a.Id) b WHERE b.coun<=1);
