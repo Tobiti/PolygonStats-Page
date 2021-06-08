@@ -12,6 +12,7 @@
 	$stmt->execute();
 	$result = $stmt->get_result() or die("database error:". mysqli_error($mysqli));
 
+	$data = [];
 	while($row = $result->fetch_array(MYSQLI_ASSOC)) {
 		if ($row["LogEntryType"] == "Fort") {
 			$row["LogEntryType"] = "Pokestop";

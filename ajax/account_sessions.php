@@ -14,7 +14,9 @@
 	$stmt->execute();
 	$result = $stmt->get_result() or die("database error:". mysqli_error($mysqli));
 
+	$data = [];
 	while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+		$row["TotalMinutes"] = max(1, $row["TotalMinutes"]);
 		$row["XpHour1"] = (int) ($row["TotalXp"] / ($row["TotalMinutes"] / 60));
 		$row["XpHour24"] = (int) ($row["TotalXp"] / ($row["TotalMinutes"] / 60 / 24));
 		$row["StardustHour1"] = (int) ($row["TotalStardust"] / ($row["TotalMinutes"] / 60));

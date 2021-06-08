@@ -128,7 +128,20 @@
       </nav>
 	
 	<div class="container-fluid">
-    <h2>Sessions for <?php echo $_GET["account"] ?></h2><br />
+    <h2><?php echo $_GET["account"] ?></h2>
+		
+	<?php 
+		require('ajax/config.php');
+		$stmt = $mysqli->prepare("SELECT * FROM Account WHERE Id=?");
+		
+		$stmt->bind_param("i", $_GET["id"]);
+		$stmt->execute();
+		$result = $stmt->get_result() or die("database error:". mysqli_error($mysqli));
+		while($row = $result->fetch_array(MYSQLI_ASSOC)){
+			echo "<strong>Level:</strong> " . $row["Level"] . " <strong>Exp:</strong> " . $row["Experience"] . "/" . $row["NextLevelExp"] . " <strong>Stardust:</strong> " . $row["Stardust"] . " <strong>Pokecoins:</strong> " . $row["Pokecoins"] . " <strong>Team:</strong> " . $row["Team"] . "<br />";
+		}
+	?>
+    <br />
 	<div id="vis-buttons">
         Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="0">Caught Pokemon</button> 
 						<button type="button" class="btn btn-outline-secondary" data-column="1">Escaped Pokemon</button> 
