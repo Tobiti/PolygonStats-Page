@@ -6,7 +6,7 @@
 
 	$data = [];
 	while($row = $result->fetch_array(MYSQLI_ASSOC)){
-		$row["Name"] = substr($row["Name"], 0, 2) . "XXXXX" . substr($row["Name"], strlen($row["Name"])-2);
+		$row["Name"] = hideAccountName($row["Name"]);
 		$row["TotalMinutes"] = max(1, $row["TotalMinutes"]);
 		$row["XpHour1"] = (int) ($row["TotalXp"] / ($row["TotalMinutes"] / 60));
 		$row["XpHour24"] = (int) ($row["TotalXp"] / ($row["TotalMinutes"] / 60 / 24));

@@ -44,12 +44,11 @@
 		
 		var myData = {};
 		myData.account_id = "<?php echo $_GET["id"] ?>";
-		myData.daily = 0
 		
       var table = $('#sessions').DataTable({
         "processing": true,
         "ajax": {
-          "url": 'ajax/account_sessions.php',
+          "url": 'ajax/account_pokemon.php',
           "data":function(d) {
 			return  $.extend(d, myData);
           }
@@ -58,41 +57,20 @@
           "regex": true
         },
         "aoColumns": [
-          { mData: 'CaughtPokemon' },
-          { mData: 'FleetPokemon' },
-          { mData: 'ShinyPokemon' },
-          { mData: '100IV' },
-          { mData: 'FortSpins' },
-          { mData: 'Rockets' },
-          { mData: 'Raids' },
-          { mData: 'XpHour1' },
-          { mData: 'XpHour24' },
-          { mData: 'TotalXp' },
-          { mData: 'StardustHour1' },
-          { mData: 'StardustHour24' },
-          { mData: 'TotalStardust' },
-          { mData: 'StartTime' },
-          { mData: 'TotalMinutes' }
+          { mData: 'Pokemon' },
+          { mData: 'Caught' },
+          { mData: 'Shiny' },
+          { mData: 'ShinyRate' },
+          { mData: 'Candy' }
         ],
-        "order": [[ 13, "desc" ]],
         "columnDefs": [
             {
               "render": function ( data, type, row ) {
-                return moment.utc(data).local().format('DD/MM/YYYY HH:mm:ss');
+                return data +"%";
               },
-              "targets": 13
+              "targets": 3
             }
-          ],
-        "fnDrawCallback": function( oSettings ) {
-			$('#sessions tbody').off().on('click', 'tr', function () {
-				var data = table.row( this ).data();
-				if (myData.daily == 0) {
-					window.location = "session.php?id="+data.SessionId;
-				} else {
-					window.location = "session.php?acc_id=<?php echo $_GET["id"] ?>&date="+encodeURIComponent(data.StartTime);
-				}
-			});
-        }
+        ]
       });
  
 		$('#vis-buttons button').on( 'click', function (e) {
@@ -103,14 +81,6 @@
 	 
 			// Toggle the visibility
 			column.visible( ! column.visible() );
-		});
- 
-		$('#switch-to-daily').on( 'click', function (e) {
-			e.preventDefault();
-			myData.daily = myData.daily == 1 ? 0 : 1;
-			var buttonText = document.getElementById("switch-to-daily").firstChild;
-			buttonText.data = myData.daily == 1 ? "Session" : "Daily";
-			table.ajax.reload(null,false);
 		});
     });
     function autoRefresh(){
@@ -141,7 +111,7 @@
 	</nav>
 	
 	<div class="container-fluid">
-    <h2><?php echo (isset($data) ? hideAccountName($data["Name"]) : "AccountName not Found") ?></h2>
+    <h2><a href="account.php?id=<?php echo $_GET["id"] ?>"><?php echo (isset($data) ? hideAccountName($data["Name"]) : "AccountName not Found") ?></a></h2>
 		
 	<?php 
 		if(isset($data)){
@@ -150,44 +120,23 @@
 	?>
     <br />
 	<div id="vis-buttons">
-        Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="0">Caught Pokemon</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="1">Escaped Pokemon</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="2">Shiny Pokemon</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="3">100IV</button> 
-						<button type="button" class="btn btn-outline-secondary" data-column="4">Spinned Pokestops</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="5">Rockets</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="6">Raids</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="7">XP/h</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="8">XP/Day</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="9">XP Total</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="10">Stardust/h</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="11">Stardust/Day</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="12">Stardust Total</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="13">Start Time</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="14">Total Minutes</button>
+        Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="0">Pokemon Name</button> 
+						<button type="button" class="btn btn-outline-secondary" data-column="1">Caught</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="2">Shiny</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="3">Shiny Rate</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="4">Candy</button>
     </div><br />
 	<div id="">
-        Switch to: 	<button type="button" class="btn btn-outline-secondary" id="switch-to-daily">Daily</button>
-					<button type="button" class="btn btn-outline-secondary" onclick="location.href = 'account_pokemon.php?id=<?php echo $_GET["id"] ?>';">Caught Pokemon</button>
+        Switch to: <button type="button" class="btn btn-outline-secondary" onclick="location.href = 'account.php?id=<?php echo $_GET["id"] ?>';">Session</button>
     </div><br />
       <table id="sessions" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
         <thead>
           <tr>
-            <th style="white-space:normal;">Caught Pokemon</th>
-            <th style="white-space:normal;">Escaped Pokemon</th>
-            <th style="white-space:normal;">Shiny Pokemon</th>
-            <th style="white-space:normal;">100IV</th>
-            <th style="white-space:normal;">Spinned Pokestops</th>
-            <th style="white-space:normal;">Rockets</th>
-            <th style="white-space:normal;">Raids</th>
-            <th style="white-space:normal;">XP/h</th>
-            <th style="white-space:normal;">XP/Day</th>
-            <th >XP Total</th>
-            <th style="white-space:normal;">Stardust/h</th>
-            <th style="white-space:normal;">Stardust/Day</th>
-            <th style="white-space:normal;">Stardust Total</th>
-            <th style="white-space:normal;">Start Time</th>
-            <th style="white-space:normal;">Total Minutes</th>
+            <th >Pokemon Name</th>
+            <th >Caught</th>
+            <th >Shiny</th>
+            <th >Shiny Rate</th>
+            <th >Candy</th>
           </tr>
         </thead>
       </table>

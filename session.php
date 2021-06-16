@@ -1,3 +1,21 @@
+<?php 
+	require('ajax/config.php');
+
+	if (isset($_GET["id"])) {
+		$id = $_GET["id"];
+		$stmt = $mysqli->prepare("SELECT * FROM Account WHERE Id=(SELECT s.AccountId FROM Session s WHERE s.Id=?)");
+	} else {
+		$id = $_GET["acc_id"];
+		$stmt = $mysqli->prepare("SELECT * FROM Account WHERE Id=?");
+	}
+	
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$result = $stmt->get_result() or die("database error:". mysqli_error($mysqli));
+	while($row = $result->fetch_array(MYSQLI_ASSOC)){
+		$data = $row;
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,31 +189,30 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/">PokemonGoStats</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="index.html">PokemonGoStats</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-labewl="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
         </button>
   
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-				<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-				<a class="nav-link" href="/pokemon.php">Pokemon</a>
-            </li>
-          </ul>
-  
-        </div>
-      </nav>
+        <div class="collapse navbar-collapse" id="navbarToggler">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="pokemon.php">Pokemon</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 	
 	<div class="container-fluid">
 	<?php 
 	if (isset($_GET["id"])) {
-		echo '<h2>Session '.$_GET["id"].' for '.$_GET["account"].'</h2><br />';
+		echo '<h2>Session '.$_GET["id"].' for <a href="account.php?id='.$data["Id"].'">'.hideAccountName($data["Name"]).'</a></h2><br />';
 	} else {
-		echo '<h2>Day '.$_GET["date"].' for '.$_GET["account"].'</h2><br />';
+		echo '<h2>Day '.$_GET["date"].' for <a href="account.php?id='.$data["Id"].'">'.hideAccountName($data["Name"]).'</a></h2><br />';
 	}
 	?>
 	<div id="vis-buttons">
