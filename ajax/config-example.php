@@ -1,4 +1,6 @@
 <?php
+	require('functions.php');
+	
 	$mysqli = mysqli_init();
 	if (!$mysqli) {
 		die("mysqli_init failed");
