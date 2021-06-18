@@ -1,6 +1,6 @@
 <?php
 	require('config.php');
-	$result = $mysqli->query("SELECT PokemonName, SUM(CaughtSuccess=1) as Caught, SUM(CaughtSuccess=0) as Fleet, SUM(Shiny=1) as Shiny FROM SessionLogEntry WHERE `LogEntryType`=\"Pokemon\" AND `PokemonName`<>\"Missingno\" AND `timestamp` > ADDDATE(NOW(), INTERVAL -1 DAY) GROUP BY `PokemonName`") or die("database error:". mysqli_error($mysqli));
+	$result = $mysqli->query("SELECT PokemonName, SUM(CaughtSuccess=1) as Caught, SUM(CaughtSuccess=0 AND `LogEntryType`=\"Pokemon\") as Fleet, SUM(Shiny=1) as Shiny FROM SessionLogEntry WHERE `LogEntryType`=\"Pokemon\" AND `PokemonName`<>\"Missingno\" AND `timestamp` > ADDDATE(NOW(), INTERVAL -1 DAY) GROUP BY `PokemonName`") or die("database error:". mysqli_error($mysqli));
 
 	$data = [];
 	while($row = $result->fetch_array(MYSQLI_ASSOC)) {

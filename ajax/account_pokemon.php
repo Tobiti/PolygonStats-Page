@@ -3,7 +3,7 @@
 
 	$id = $_GET["account_id"];
 
-	$stmt = $mysqli->prepare("SELECT PokemonName AS Pokemon, SUM(CaughtSuccess=1) AS Caught, SUM(CaughtSuccess=0) AS Fleet, SUM(Shiny) AS Shiny, SUM(Attack=15 AND Defense=15 AND Stamina=15 AND LogEntryType<>\"EvolvePokemon\") AS 100IV, SUM(CandyAwarded) AS Candy FROM SessionLogEntry WHERE SessionId IN (SELECT Id FROM `Session` s WHERE AccountId=?) AND `PokemonName`<>\"Missingno\" AND `LogEntryType`<>\"EvolvePokemon\" GROUP BY `PokemonName`");
+	$stmt = $mysqli->prepare("SELECT PokemonName AS Pokemon, SUM(CaughtSuccess=1) AS Caught, SUM(CaughtSuccess=0 AND `LogEntryType`=\"Pokemon\") AS Fleet, SUM(Shiny) AS Shiny, SUM(Attack=15 AND Defense=15 AND Stamina=15 AND LogEntryType<>\"EvolvePokemon\") AS 100IV, SUM(CandyAwarded) AS Candy FROM SessionLogEntry WHERE SessionId IN (SELECT Id FROM `Session` s WHERE AccountId=?) AND `PokemonName`<>\"Missingno\" AND `LogEntryType`<>\"EvolvePokemon\" GROUP BY `PokemonName`");
 
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
