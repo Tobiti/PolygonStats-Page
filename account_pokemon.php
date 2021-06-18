@@ -59,6 +59,7 @@
         "aoColumns": [
           { mData: 'Pokemon' },
           { mData: 'Caught' },
+          { mData: 'Fleet' },
           { mData: 'Shiny' },
           { mData: 'ShinyRate' },
           { mData: 'Candy' }
@@ -122,9 +123,10 @@
 	<div id="vis-buttons">
         Toggle column: 	<button type="button" class="btn btn-outline-secondary" data-column="0">Pokemon Name</button> 
 						<button type="button" class="btn btn-outline-secondary" data-column="1">Caught</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="2">Shiny</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="3">Shiny Rate</button>
-						<button type="button" class="btn btn-outline-secondary" data-column="4">Candy</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="2">Fleet</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="3">Shiny</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="4">Shiny Rate</button>
+						<button type="button" class="btn btn-outline-secondary" data-column="5">Candy</button>
     </div><br />
 	<div id="">
         Switch to: <button type="button" class="btn btn-outline-secondary" onclick="location.href = 'account.php?id=<?php echo $_GET["id"] ?>';">Session</button>
@@ -134,6 +136,7 @@
           <tr>
             <th >Pokemon Name</th>
             <th >Caught</th>
+            <th >Fleet</th>
             <th >Shiny</th>
             <th >Shiny Rate</th>
             <th >Candy</th>
