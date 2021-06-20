@@ -43,13 +43,35 @@
 	<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/sorting/datetime-moment.js"></script>
 	<script type="text/javascript" language="javascript" class="init">
+		
+	function getFormatedPokemonName(name) {
+	  switch (name.toLowerCase()) {
+		case "mrmime":
+		  return "mr-mime";
+		case "mrrime":
+		  return "mr-rime";
+		case "mimejr":
+		  return "mime-jr";
+		default:
+		  return name.toLowerCase().replace("female", "-f").replace("male", "-m");
+	  }
+	}
+
+	function getGenerationIdentifier(name) {
+	  switch (name.toLowerCase()) {
+		case "mrrime":
+		  return "go";
+		default:
+		  return "bank";
+	  }
+	}
 	
     /* Formatting function for row details - modify as you need */
     function format ( d ) {
         // `d` is the original data object for the row
         return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
-            '<td><a href="http://pokemondb.net/pokedex/'+ d.PokemonName.toLowerCase().replace("female", "-f").replace("male", "-m") +'"><img src="https://img.pokemondb.net/sprites/bank/'+ ((d.Shiny == 1) ? 'shiny':'normal') +'/'+ d.PokemonName.toLowerCase().replace("female", "-f").replace("male", "-m") +'.png" alt="'+d.PokemonName+'"></a></td>'+
+            '<td><a href="http://pokemondb.net/pokedex/'+ getFormatedPokemonName(d.PokemonName) +'"><img src="https://img.pokemondb.net/sprites/'+ getGenerationIdentifier(d.PokemonName) +'/'+ ((d.Shiny == 1) ? 'shiny':'normal') +'/'+ getFormatedPokemonName(d.PokemonName) +'.png" alt="'+d.PokemonName+'"></a></td>'+
             '<td>'+
               '<table>'+
                 '<tr>'+
