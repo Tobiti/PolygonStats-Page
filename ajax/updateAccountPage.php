@@ -31,6 +31,6 @@
 	$sql = "UPDATE `Account` a SET ShinyPokemon=COALESCE((SELECT SUM(Shiny) FROM SessionLogEntry WHERE SessionId IN (SELECT s.Id FROM `Session` s WHERE s.AccountId=a.Id)), 0);";
 	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
 	
-	$sql = "UPDATE `Account` a SET MaxIV=COALESCE((SELECT SUM(*) FROM SessionLogEntry WHERE Attack=15 AND Defense=15 AND Stamina=15 AND LogEntryType<>\"EvolvePokemon\" AND SessionId IN (SELECT s.Id FROM `Session` s WHERE s.AccountId=a.Id)), 0);";
+	$sql = "UPDATE `Account` a SET MaxIV=COALESCE((SELECT SUM(Attack=15 AND Defense=15 AND Stamina=15) FROM SessionLogEntry WHERE LogEntryType<>\"EvolvePokemon\" AND SessionId IN (SELECT s.Id FROM `Session` s WHERE s.AccountId=a.Id)), 0);";
 	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
 ?>
