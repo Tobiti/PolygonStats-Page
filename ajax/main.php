@@ -1,7 +1,7 @@
 <?php
 	require('config.php');
 
-	$sql = "SELECT * FROM (SELECT AccountId, SUM(CaughtPokemon) AS CaughtPokemon, SUM(FleetPokemon) AS FleetPokemon, SUM(ShinyPokemon) AS ShinyPokemon, SUM(100IV) AS 100IV, SUM(FortSpins) AS FortSpins, SUM(Rockets) AS Rockets, SUM(Raids) AS Raids, SUM(TotalXp) AS TotalXp, SUM(TotalStardust) AS TotalStardust, SUM(TotalMinutes) AS TotalMinutes FROM (SELECT `SessionId`, SUM(CaughtSuccess=1) AS CaughtPokemon, SUM(CaughtSuccess=0 AND LogEntryType=\"Pokemon\") AS FleetPokemon, SUM(Shiny) AS ShinyPokemon, SUM(Attack=15 AND Defense=15 AND Stamina=15 AND NOT LogEntryType<>\"EvolvePokemon\") AS 100IV, SUM(LogEntryType=\"Fort\") AS FortSpins, SUM(LogEntryType=\"Rocket\") AS Rockets, SUM(LogEntryType=\"Raid\") AS Raids, SUM(XpReward) AS TotalXp, SUM(StardustReward) AS TotalStardust, TIMESTAMPDIFF(MINUTE, MIN(`timestamp`), MAX(`timestamp`)) AS TotalMinutes FROM SessionLogEntry GROUP BY `SessionId`) l JOIN `Session` s ON s.Id=l.SessionId GROUP BY AccountId) t JOIN Account ON t.AccountId=Id;";
+	$sql = "SELECT Id, CaughtPokemon, EscapedPokemon AS FleetPokemon, ShinyPokemon, MaxIV AS 100IV, Pokestops AS FortSpins, Rockets, Raids, TotalGainedXp AS TotalXp, TotalGainedStardust AS TotalStardust, TotalMinutes FROM Account";
 	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
 
 	$data = [];
