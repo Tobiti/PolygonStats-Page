@@ -7,7 +7,7 @@
 	$sql = "UPDATE `Account` a SET TotalMinutes=COALESCE((SELECT SUM(TIMESTAMPDIFF(MINUTE, StartTime, EndTime)) FROM `Session` s WHERE s.AccountId=a.Id AND EndTime<>\"0001-01-01 00:00:00.000000\"), 1);";
 	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
 	
-	$sql = "UPDATE `Account` a SET CaughtPokemon=COALESCE((SELECT COUNT(CaughtSuccess=1) FROM SessionLogEntry WHERE SessionId IN (SELECT s.Id FROM `Session` s WHERE s.AccountId=a.Id)), 0);";
+	$sql = "UPDATE `Account` a SET CaughtPokemon=COALESCE((SELECT COUNT(*) FROM SessionLogEntry WHERE CaughtSuccess=1 AND SessionId IN (SELECT s.Id FROM `Session` s WHERE s.AccountId=a.Id)), 0);";
 	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
 	
 	$sql = "UPDATE `Account` a SET EscapedPokemon=COALESCE((SELECT COUNT(*) FROM SessionLogEntry WHERE LogEntryType=\"Pokemon\" AND CaughtSuccess=0 AND SessionId IN (SELECT s.Id FROM `Session` s WHERE s.AccountId=a.Id)), 0);";
