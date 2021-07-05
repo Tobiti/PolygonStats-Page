@@ -1,7 +1,7 @@
 <?php
 	require('config.php');
 
-	$sql = "SELECT Id, CaughtPokemon, EscapedPokemon AS FleetPokemon, ShinyPokemon, MaxIV AS 100IV, Pokestops AS FortSpins, Rockets, Raids, TotalGainedXp AS TotalXp, TotalGainedStardust AS TotalStardust, TotalMinutes FROM Account";
+	$sql = "SELECT Name, Id, CaughtPokemon, EscapedPokemon AS FleetPokemon, ShinyPokemon, MaxIV AS 100IV, Pokestops AS FortSpins, Rockets, Raids, TotalGainedXp AS TotalXp, TotalGainedStardust AS TotalStardust, TotalMinutes FROM Account";
 	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
 
 	$data = [];
