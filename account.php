@@ -47,6 +47,7 @@
 		myData.daily = 0
 		
       var table = $('#sessions').DataTable({
+		"pageLength": 25,
         "processing": true,
         "ajax": {
           "url": 'ajax/account_sessions.php',

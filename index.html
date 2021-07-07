@@ -24,6 +24,7 @@
 	
     $(document).ready(function() {
 		var table = $('#stats').DataTable({
+			"pageLength": 25,
 			"processing": true,
 			"sAjaxSource": "ajax/main.php",
 			"fixedHeader": true,

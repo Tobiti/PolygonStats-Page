@@ -46,6 +46,7 @@
 		myData.account_id = "<?php echo $_GET["id"] ?>";
 		
       var table = $('#sessions').DataTable({
+		"pageLength": 25,
         "processing": true,
         "ajax": {
           "url": 'ajax/account_pokemon.php',
@@ -69,7 +70,7 @@
               "render": function ( data, type, row ) {
                 return data +"%";
               },
-              "targets": 3
+              "targets": 4
             }
         ]
       });

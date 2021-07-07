@@ -108,6 +108,7 @@
 		$.fn.dataTable.moment( 'DD/MM/YYYY HH:mm:ss' );
 		
       var table = $('#logEntries').DataTable({
+		"pageLength": 25,
         "processing": true,
         "ajax": {
           "url": 'ajax/session_log_entries.php',
