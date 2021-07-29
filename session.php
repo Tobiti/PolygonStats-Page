@@ -71,7 +71,7 @@
         // `d` is the original data object for the row
         return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
-            '<td><a href="http://pokemondb.net/pokedex/'+ getFormatedPokemonName(d.PokemonName) +'"><img src="https://img.pokemondb.net/sprites/'+ getGenerationIdentifier(d.PokemonName) +'/'+ ((d.Shiny == 1) ? 'shiny':'normal') +'/'+ getFormatedPokemonName(d.PokemonName) +'.png" alt="'+d.PokemonName+'"></a></td>'+
+            '<td><a href="http://pokemondb.net/pokedex/'+ getFormatedPokemonName(d.PokemonName) +'"><img src="https://img.pokemondb.net/sprites/'+ getGenerationIdentifier(d.PokemonName) +'/'+ ((d.Shiny == 1) ? 'shiny':'normal') +'/'+ getFormatedPokemonName(d.PokemonName) + (d.Form.toLowerCase().includes('alola') ? '-alolan':'') +'.png" alt="'+d.PokemonName+'"></a></td>'+
             '<td>'+
               '<table>'+
                 '<tr>'+
