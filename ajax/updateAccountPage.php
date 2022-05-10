@@ -33,4 +33,7 @@
 	
 	$sql = "UPDATE `Account` a SET LastUpdate=UTC_TIMESTAMP() ORDER BY a.Id;";
 	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
+	
+	$sql = "DELETE FROM SessionLogEntry WHERE `timestamp` < ADDDATE(NOW(), INTERVAL -30 DAY);";
+	$result = $mysqli->query($sql) or die("database error:". mysqli_error($mysqli));
 ?>

@@ -262,6 +262,6 @@
         </thead>
       </table>
 	</div>
-	<a href="https://paypal.me/pools/c/8nDB1mCCQz"><img src="images/paypal_donate.jpg" style="width:300px;height:75px;"/></a>
+	<a href="https://paypal.me/tobiti22"><img src="images/paypal_donate.jpg" style="width:300px;height:75px;"/></a>
 	</body>
 </html>

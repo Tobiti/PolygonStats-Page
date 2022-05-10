@@ -46,7 +46,6 @@
 		myData.account_id = "<?php echo $_GET["id"] ?>";
 		
       var table = $('#sessions').DataTable({
-		"pageLength": 25,
         "processing": true,
         "ajax": {
           "url": 'ajax/account_pokemon.php',
@@ -70,7 +69,7 @@
               "render": function ( data, type, row ) {
                 return data +"%";
               },
-              "targets": 4
+              "targets": 3
             }
         ]
       });
@@ -145,6 +144,6 @@
         </thead>
       </table>
 	</div>
-	<a href="https://paypal.me/pools/c/8nDB1mCCQz"><img src="images/paypal_donate.jpg" style="width:300px;height:75px;"/></a>
+	<a href="https://paypal.me/tobiti22"><img src="images/paypal_donate.jpg" style="width:300px;height:75px;"/></a>
 	</body>
 </html>
